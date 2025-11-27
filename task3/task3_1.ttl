@@ -1,0 +1,222 @@
+@prefix : <http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/> .
+
+<http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/confirmedBy
+:confirmedBy rdf:type owl:ObjectProperty ;
+             rdfs:domain :Issue ;
+             rdfs:range :Incident ;
+             owl:propertyChainAxiom ( :confirmedBy
+                                      :connectedWith
+                                    ) .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/connectedWith
+:connectedWith rdf:type owl:ObjectProperty ,
+                        owl:TransitiveProperty ;
+               rdfs:domain :Incident ;
+               rdfs:range :Incident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/createdBy
+:createdBy rdf:type owl:ObjectProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:domain :Request ;
+           rdfs:range :User .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/hasAgreement
+:hasAgreement rdf:type owl:ObjectProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:domain :User ;
+              rdfs:range :ServiceAgreement .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/hasIssue
+:hasIssue rdf:type owl:ObjectProperty ,
+                   owl:FunctionalProperty ;
+          rdfs:domain :Request ;
+          rdfs:range :Issue .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/ActiveAgreement
+:ActiveAgreement rdf:type owl:Class ;
+                 rdfs:subClassOf :ServiceAgreement .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/ExpiredAgreement
+:ExpiredAgreement rdf:type owl:Class ;
+                  rdfs:subClassOf :ServiceAgreement .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/ExternalIncident
+:ExternalIncident rdf:type owl:Class ;
+                  rdfs:subClassOf :Incident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/Incident
+:Incident rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/Issue
+:Issue rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/Request
+:Request rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/ServiceAgreement
+:ServiceAgreement rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/TechIncident
+:TechIncident rdf:type owl:Class ;
+              rdfs:subClassOf :Incident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/User
+:User rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/UserIncident
+:UserIncident rdf:type owl:Class ;
+              rdfs:subClassOf :Incident .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10#GennadyAccountTechIncident
+:GennadyAccountTechIncident rdf:type owl:NamedIndividual ,
+                                     :TechIncident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10#GennadyFailedLoginIncident
+:GennadyFailedLoginIncident rdf:type owl:NamedIndividual ,
+                                     :UserIncident ;
+                            :connectedWith :GennadyAccountTechIncident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10#PetyaExternalServiceErrorIncident
+:PetyaExternalServiceErrorIncident rdf:type owl:NamedIndividual ,
+                                            :ExternalIncident ;
+                                   :connectedWith :PetyaServiceBugIncident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10#PetyaPaymentFailedIncident
+:PetyaPaymentFailedIncident rdf:type owl:NamedIndividual ,
+                                     :UserIncident ;
+                            :connectedWith :PetyaExternalServiceErrorIncident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10#PetyaServiceBugIncident
+:PetyaServiceBugIncident rdf:type owl:NamedIndividual ,
+                                  :TechIncident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10#VasyaFailedLoginIncident
+:VasyaFailedLoginIncident rdf:type owl:NamedIndividual ,
+                                   :UserIncident ;
+                          :connectedWith :VasyaAccountBlockedIncident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10#VasyaViolatedServiceRuleIncident
+:VasyaViolatedServiceRuleIncident rdf:type owl:NamedIndividual ,
+                                           :UserIncident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/Gennady
+:Gennady rdf:type owl:NamedIndividual ,
+                  :User ;
+         :hasAgreement :GennadyAgreement .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/GennadyAgreement
+:GennadyAgreement rdf:type owl:NamedIndividual ,
+                           :ExpiredAgreement .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/GennadyIssue
+:GennadyIssue rdf:type owl:NamedIndividual ,
+                       :Issue ;
+              :confirmedBy :GennadyFailedLoginIncident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/GennadyRequest
+:GennadyRequest rdf:type owl:NamedIndividual ,
+                         :Request ;
+                :createdBy :Gennady ;
+                :hasIssue :GennadyIssue .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/Petya
+:Petya rdf:type owl:NamedIndividual ,
+                :User ;
+       :hasAgreement :PetyaAgreement .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/PetyaAgreement
+:PetyaAgreement rdf:type owl:NamedIndividual ,
+                         :ActiveAgreement .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/PetyaIssue
+:PetyaIssue rdf:type owl:NamedIndividual ,
+                     :Issue ;
+            :confirmedBy :PetyaPaymentFailedIncident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/PetyaRequest
+:PetyaRequest rdf:type owl:NamedIndividual ,
+                       :Request ;
+              :createdBy :Petya ;
+              :hasIssue :PetyaIssue .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/Vasya
+:Vasya rdf:type owl:NamedIndividual ,
+                :User ;
+       :hasAgreement :VasyaAgreement .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/VasyaAccountBlockedIncident
+:VasyaAccountBlockedIncident rdf:type owl:NamedIndividual ,
+                                      :UserIncident ;
+                             :connectedWith :VasyaViolatedServiceRuleIncident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/VasyaAgreement
+:VasyaAgreement rdf:type owl:NamedIndividual ,
+                         :ActiveAgreement .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/VasyaIssue
+:VasyaIssue rdf:type owl:NamedIndividual ,
+                     :Issue ;
+            :confirmedBy :VasyaFailedLoginIncident .
+
+
+###  http://www.semanticweb.org/pasha/ontologies/2025/10/untitled-ontology-10/VasyaRequest
+:VasyaRequest rdf:type owl:NamedIndividual ,
+                       :Request ;
+              :createdBy :Vasya ;
+              :hasIssue :VasyaIssue .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
